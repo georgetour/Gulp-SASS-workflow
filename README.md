@@ -52,13 +52,13 @@ We need to create a package.json that will contain all our dependencies
 
 To start adding changes to your git (m stads for message) and add new files :
 
-<code>git add .
+<code>git add .<code>
 
 <code>git commit  -m "Add package.json"</code>
 
 And we push the changes
 
-<code>git push
+<code>git push<code>
 
 ### Finally installing Gulp and SASS to our project
 
