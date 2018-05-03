@@ -50,10 +50,24 @@ We need to create a package.json that will contain all our dependencies
 
 <code>npm init
 
-To start adding changes to your git (m stads for message)
+To start adding changes to your git (m stads for message) and add new files :
 
-<code>git commit -a -m "Add package.json"</code>
+<code>git add .
+
+<code>git commit  -m "Add package.json"</code>
 
 And we push the changes
 
 <code>git push
+
+### Finally installing Gulp and SASS to our project
+
+Install gulp and save dependancies
+
+<code>npm install -save-dev gulp</code>
+
+We can see in our package.json we have new dependanciesand a folder node-modules.
+
+Install gulp-sass :
+
+<code>npm install -save-dev gulp-sass</code>
