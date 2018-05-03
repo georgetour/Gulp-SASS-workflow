@@ -52,4 +52,8 @@ We need to create a package.json that will contain all our dependencies
 
 To start adding changes to your git (m stads for message)
 
-git commit -m "Add package.json"
+<code>git commit -a -m "Add package.json"</code>
+
+And we push the changes
+
+<code>git push
