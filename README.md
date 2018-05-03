@@ -48,17 +48,17 @@ To create or reinitialize git :
 
 We need to create a package.json that will contain all our dependencies
 
-<code>npm init
+<code>npm init</code>
 
 To start adding changes to your git (m stads for message) and add new files :
 
-<code>git add .<code>
+<code>git add .</code>
 
 <code>git commit  -m "Add package.json"</code>
 
 And we push the changes
 
-<code>git push<code>
+<code>git push</code>
 
 ### Finally installing Gulp and SASS to our project
 
