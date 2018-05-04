@@ -3,11 +3,13 @@ var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload; //Comes with browserSync
 var autoprefixer = require('gulp-autoprefixer');
+var clean = require('gulp-clean');
 
 //All files in our src
 var SOURCE_PATHS ={
   sassSource : 'src/scss/*.scss',
-  htmlSource :'src/*.html'
+  htmlSource :'src/*.html',
+  jsSource : 'src/js/*.js'
 }
 
 
@@ -27,10 +29,33 @@ gulp.task('sass', function(){
 });
 
 
+//Copy javascripts file from src to app
+gulp.task('scripts',['clean-scripts'], function(){
+  gulp.src(SOURCE_PATHS.jsSource)
+      .pipe(gulp.dest(APP_PATH.js))
+});
+
+
+
+//clean scripts if not exist in src
+gulp.task('clean-scripts',function(){
+  return gulp.src(APP_PATH.js +'/*.js', {read:false})
+  .pipe(clean());
+});
+
+
 //copy files from source to app
-gulp.task('copy',function(){
+gulp.task('copy',['clean-html'],function(){
     gulp.src(SOURCE_PATHS.htmlSource)
     .pipe(gulp.dest(APP_PATH.root))
+});
+
+
+
+//clean html files that are deleted
+gulp.task('clean-html',function(){
+  return gulp.src(APP_PATH.root +'*.html', {read:false})
+  .pipe(clean());
 });
 
 
@@ -42,15 +67,15 @@ gulp.task('browserSync',function(){ //run also sass task
       server :{
         baseDir : APP_PATH.root //path for server base directory
       }
-
     })
 });
 
 
-//Watch for changes in browserSync, sass and html
-gulp.task('watch', ['browserSync','sass','copy'],function(){
+//Watch for changes in browserSync, sass, html, js
+gulp.task('watch', ['browserSync','sass','copy','clean-html','clean-scripts','scripts'], function(){
     gulp.watch([SOURCE_PATHS.sassSource],['sass']);
-    gulp.watch([SOURCE_PATHS.htmlSource],['copy'])//if we have changes to html folder copy it to app 
+    gulp.watch([SOURCE_PATHS.htmlSource],['copy']);//if we have changes to html folder copy it to app
+    gulp.watch([SOURCE_PATHS.jsSource],['scripts']);
   });
 
 

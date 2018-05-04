@@ -1,11 +1,13 @@
 # Gulp-SASS-workflow
 This is a project that uses NPM, Gulp and SASS so we can optimize our workflow. It will help new developers to learn to work with these tools.
 
-#### Requirements : Very good level in HTML and CSS, basic understanding of javascript
+##### Requirements : Very good level in HTML and CSS, basic understanding of javascript
 
-Gulp is a tool that helps with workflow automation since it does a lot of tasks for us like minification, concatination, browser refresh when we have changes and many more...
+Gulp is a tool that helps with workflow automation since it does a lot of tasks for us like minification, concatenation, browser refresh when we have changes and many more... The general idea is that gulp has tasks and each task does something for us automatically...
 
 SASS is a preprocessor that makes CSS really powerful since you can have variables, mixin, partial, nesting, arguments, create grid responsive layouts and other cool stuff that will improve your CSS code amazingly.
+
+<h6>In our project, gulpfile.js controls gulp tasks and package.json has all our dependencies</h6>
 
 ## Table of contents
 
@@ -13,7 +15,7 @@ SASS is a preprocessor that makes CSS really powerful since you can have variabl
 - [Our first task](#first-task-sass-compiler)
 - [Browser-sync](#installing-browser-sync-and-Creating-Gulp-Task)
 - [AutoPrefixer](#autoprefixer)
-- [Copying files](#copying-files)
+- [Copying and removing files](#copying-files)
 
 
 
@@ -84,7 +86,7 @@ By having package.json if we run npm install we will have all our packages again
 
 ## First task SASS compiler
 
-Create a js file that you will call the packages with require.For example in our project the file is called gulpfile.js. We must add our variable to our gulp file so we can use them where we want.
+Create a js file that you will call the packages with require and control gulp tasks. For example in our project the file is called gulpfile.js. We must add our variable to our gulp file so we can use them where we want.
 
 <pre><code>var gulp = require('gulp');
 var sass = require('gulp-sass');
@@ -178,3 +180,21 @@ We can copy files from one place to another by having a task for this:
 </code></pre>
 
 And then watch a file and if it has changes run the copy task as we see in gulpfile.js. The use for this is to have the original file and the minified one.
+
+## Gulp clean
+
+Gulp clean is a package that checks if we have removed a file from src and removes it from destination.
+
+<pre><code>npm install --save-dev gulp-clean
+</code></pre>
+
+
+
+<pre><code>
+gulp.task('clean-html',function(){
+    gulp.src(APP_PATH.root + '* .html')
+    .pipe(gulp.dest(APP_PATH.root))
+});
+</code></pre>
+
+Also to have deleted without restarting gulp we must add the task to our copy task.
