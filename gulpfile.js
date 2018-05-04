@@ -26,7 +26,7 @@ gulp.task('sass', function(){
 
 //Browsersync creates a server for us and checks what files will
 //be processed for refreshing
-gulp.task('browserSync',['sass'],function(){ //run also sass task
+gulp.task('browserSync',function(){ //run also sass task
     browserSync.init([APP_PATH.css + '/*.css', APP_PATH.root+'/*.html', APP_PATH.js +'/*.js'],//check for css,html,js files
     {
       server :{
@@ -37,5 +37,11 @@ gulp.task('browserSync',['sass'],function(){ //run also sass task
 });
 
 
+//Watch for changes in browserSync and sass
+gulp.task('watch', ['browserSync','sass'],function(){
+    gulp.watch([SOURCE_PATHS.sassSource],['sass']);
+  });
+
+
 //Run multiple tasks by calling only default task seperated with ,
-gulp.task('default',['browserSync']);
+gulp.task('default',['watch']);

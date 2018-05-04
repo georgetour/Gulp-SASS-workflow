@@ -129,3 +129,12 @@ We run gulp and we will see tasks running and server :
 
  We can see any changes we save to files we specified with autorefresh thanks to BrowserSync.
 <img src="images/browser_sync.jpg">
+
+To make also css work we need to add a task and method watch. Again check gulpfile.js.
+
+<pre><code>
+gulp.task('watch', ['browserSync','sass'],function(){
+    gulp.watch([SOURCE_PATHS.sassSource],['sass']);
+  });
+</code></pre>
+We get now the changes made in css also.
