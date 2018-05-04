@@ -4,12 +4,13 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload; //Comes with browserSync
 var autoprefixer = require('gulp-autoprefixer');
 var clean = require('gulp-clean');
+var concat = require('gulp-concat');
 
 //All files in our src
 var SOURCE_PATHS ={
   sassSource : 'src/scss/*.scss',
   htmlSource :'src/*.html',
-  jsSource : 'src/js/*.js'
+  jsSource : 'src/js/**' // if you don't have it with ** concat won't work
 }
 
 
@@ -32,6 +33,7 @@ gulp.task('sass', function(){
 //Copy javascripts file from src to app
 gulp.task('scripts',['clean-scripts'], function(){
   gulp.src(SOURCE_PATHS.jsSource)
+      .pipe(concat('main.js'))
       .pipe(gulp.dest(APP_PATH.js))
 });
 

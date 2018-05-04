@@ -16,6 +16,7 @@ SASS is a preprocessor that makes CSS really powerful since you can have variabl
 - [Browser-sync](#installing-browser-sync-and-Creating-Gulp-Task)
 - [AutoPrefixer](#autoprefixer)
 - [Copying and removing files](#copying-files)
+- [Concatenating javascript](#Concatenating-javascript-files-to-one-file)
 
 
 
@@ -198,3 +199,19 @@ gulp.task('clean-html',function(){
 </code></pre>
 
 Also to have deleted without restarting gulp we must add the task to our copy task.
+
+## Concatenating javascript files to one file
+
+With this package we can have multiple js files concatenated to one.
+First in our console :
+<pre><code>npm install --save-dev gulp-concat
+</code></pre>
+
+Then we use it like this :
+
+<pre><code>gulp.task('scripts',['clean-scripts'], function(){
+  gulp.src(SOURCE_PATHS.jsSource)
+      .pipe(concat('main.js'))
+      .pipe(gulp.dest(APP_PATH.js))
+});
+</code></pre>
