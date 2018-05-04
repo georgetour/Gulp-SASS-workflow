@@ -16,7 +16,7 @@ SASS is a preprocessor that makes CSS really powerful since you can have variabl
 - [Browser-sync](#installing-browser-sync-and-Creating-Gulp-Task)
 - [AutoPrefixer](#autoprefixer)
 - [Copying and removing files](#copying-files)
-- [Concatenating javascript](#Concatenating-javascript-files-to-one-file)
+- [Concatenating javascript](#concatenating-javascript-files-to-one-file)
 
 
 
