@@ -2,10 +2,12 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload; //Comes with browserSync
+var autoprefixer = require('gulp-autoprefixer');
 
 //All files in our src
 var SOURCE_PATHS ={
-  sassSource : 'src/scss/*.scss'
+  sassSource : 'src/scss/*.scss',
+  htmlSource :'src/*.html'
 }
 
 
@@ -19,8 +21,16 @@ var APP_PATH = {
 //SASS to css
 gulp.task('sass', function(){
     return gulp.src(SOURCE_PATHS.sassSource)//from
+      .pipe(autoprefixer('last 10 versions'))
       .pipe(sass({outputStyle : 'expanded'}).on('error',sass.logError))
       .pipe(gulp.dest(APP_PATH.css));//to
+});
+
+
+//copy files from source to app
+gulp.task('copy',function(){
+    gulp.src(SOURCE_PATHS.htmlSource)
+    .pipe(gulp.dest(APP_PATH.root))
 });
 
 
@@ -37,9 +47,10 @@ gulp.task('browserSync',function(){ //run also sass task
 });
 
 
-//Watch for changes in browserSync and sass
-gulp.task('watch', ['browserSync','sass'],function(){
+//Watch for changes in browserSync, sass and html
+gulp.task('watch', ['browserSync','sass','copy'],function(){
     gulp.watch([SOURCE_PATHS.sassSource],['sass']);
+    gulp.watch([SOURCE_PATHS.htmlSource],['copy'])//if we have changes to html folder copy it to app 
   });
 
 

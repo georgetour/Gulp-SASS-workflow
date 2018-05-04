@@ -11,7 +11,9 @@ SASS is a preprocessor that makes CSS really powerful since you can have variabl
 
 - [Installation and starting](#installation-and-starting)
 - [Our first task](#first-task-sass-compiler)
-- [Installing BrowserSync](#installing-browsersync-and-Creating-Gulp-Task)
+- [Browser-sync](#installing-browser-sync-and-Creating-Gulp-Task)
+- [AutoPrefixer](#autoprefixer)
+- [Copying files](#copying-files)
 
 
 
@@ -82,18 +84,18 @@ By having package.json if we run npm install we will have all our packages again
 
 ## First task SASS compiler
 
-Create a gulpfile.js. We must add our variable to our gulp file so we can use them where we want.
+Create a js file that you will call the packages with require.For example in our project the file is called gulpfile.js. We must add our variable to our gulp file so we can use them where we want.
 
-
-<code>
-var gulp = require('gulp');
+<pre><code>var gulp = require('gulp');
 var sass = require('gulp-sass');
-</code>
+</code></pre>
 
 
 We use task method and tell gulp where the source will be and the name of the task which is 'sass'. Gulp uses pipes which define what gulp will do. Explanation on pipes :
 
 https://stackoverflow.com/questions/38404862/what-exactly-does-pipe-mean-in-gulp
+
+The output style changes what css we will have. Expanded is normal,nested changes the curly brackets, compressed makes the css minified and compact puts each tag code in one line.
 <pre>
 <code>
 gulp.task('sass', function(){
@@ -114,7 +116,9 @@ We can see scss is compiled at css.
 
 <img src="images/gulp_in_action.jpg">
 
-## Installing BrowserSync and Creating Gulp Task
+Later we can see we have a default task which simply runs with gulp command.
+
+## Installing browser-sync and Creating Gulp Task
 
 BrowserSync is a package that refreshes the page when it detects changes.
 
@@ -137,4 +141,40 @@ gulp.task('watch', ['browserSync','sass'],function(){
     gulp.watch([SOURCE_PATHS.sassSource],['sass']);
   });
 </code></pre>
+
 We get now the changes made in css also.
+
+## Autoprefixer
+
+Autoprefixer is a package that automatically adds fixes fro browsers like -webkit, -moz etc.
+
+<pre>
+<code>npm install --save-dev gulp-autoprefixer
+</code></pre>
+
+Easily we add it to our sass task :
+
+<pre><code>gulp.task('sass', function(){
+    return gulp.src(SOURCE_PATHS.sassSource)//from
+      .pipe(autoprefixer())
+      .pipe(sass({outputStyle : 'expanded'}).on('error',sass.logError))
+      .pipe(gulp.dest(APP_PATH.css));//to
+});
+</code></pre>
+
+Note : Since most modern browsers don't have issues and support everything maybe you should add
+
+<pre><code>.pipe(autoprefixer('last 10 versions'))
+</code></pre>
+
+
+## Copying files
+
+We can copy files from one place to another by having a task for this:
+<pre><code>gulp.task('copy',function(){
+    gulp.src(SOURCE_PATHS.htmlSource)
+    .pipe(gulp.dest(APP_PATH.root))
+});
+</code></pre>
+
+And then watch a file and if it has changes run the copy task as we see in gulpfile.js. The use for this is to have the original file and the minified one.
