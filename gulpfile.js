@@ -7,13 +7,17 @@ var browserify = require('gulp-browserify');
 var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var merge = require('merge-stream');
+var newer = require('gulp-newer');
+var imagemin = require('gulp-imagemin');
+
 
 
 //All files in our src
 var SOURCE_PATHS ={
   sassSource : 'src/scss/*.scss',
   htmlSource :'src/*.html',
-  jsSource : 'src/js/**' // if you don't have it with ** concat won't work
+  jsSource : 'src/js/**', // if you don't have it with ** concat won't work
+  imgSource : 'src/img/**'
 }
 
 
@@ -22,7 +26,8 @@ var APP_PATH = {
   root:'app/',
   css : 'app/css',
   js : 'app/js',
-  fonts : 'app/fonts'
+  fonts : 'app/fonts',
+  img : 'app/img'
 }
 
 //SASS to css
@@ -41,6 +46,18 @@ gulp.task('sass', function(){
           .pipe(concat('app.css'))
           .pipe(gulp.dest(APP_PATH.css));//to
 });
+
+
+
+//Check newer Images transfer them from src to app and minify them
+gulp.task('images',function(){
+    return gulp.src(SOURCE_PATHS.imgSource)
+    .pipe(newer(APP_PATH.img))
+    .pipe(imagemin())
+    .pipe(gulp.dest(APP_PATH.img));
+});
+
+
 
 
 //Have bootstrap fonts
@@ -94,11 +111,12 @@ gulp.task('browserSync',function(){ //run also sass task
 });
 
 
-//Watch for changes in browserSync, sass, html, js
-gulp.task('watch', ['browserSync','sass','copy','clean-html','clean-scripts','scripts','fonts'], function(){
+//Watch for changes in browserSync, sass, html, js and run all tasks inside watch task
+gulp.task('watch', ['browserSync','sass','copy','clean-html','clean-scripts','scripts','fonts','images'], function(){
     gulp.watch([SOURCE_PATHS.sassSource],['sass']);
     gulp.watch([SOURCE_PATHS.htmlSource],['copy']);//if we have changes to html folder copy it to app
     gulp.watch([SOURCE_PATHS.jsSource],['scripts']);
+    gulp.watch([SOURCE_PATHS.imgSource],['images']);
   });
 
 

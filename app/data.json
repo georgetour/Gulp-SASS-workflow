@@ -1,31 +1,31 @@
 {
 	"gallery": [
-    {"destiny":"London Eye",
-     "image": "london_eye.jpg"
+    {"destiny":"Athens",
+     "image": "athens.jpg"
     },
-    {"destiny":"Tower Bridge",
-     "image": "tower_bridge.jpg"
+    {"destiny":"Athens Syntagma",
+     "image": "greek_parliament.jpg"
     },
-    {"destiny":"Westminster Abbey",
-     "image": "westminster_abbey.jpg"
+    {"destiny":"Kallimarmaro Stadium",
+     "image": "kallimarmaro_stadium.jpg"
     },
-    {"destiny":"St. Paul Cathedral",
-     "image": "cathedrale.jpg"
+    {"destiny":"Crete",
+     "image": "crete.jpg"
     },
-    {"destiny":"Buckingham Palace",
-     "image": "buckingham.jpg"
+    {"destiny":"Limnos",
+     "image": "limnos.jpg"
 	  },
-    {"destiny":"Natural History Museum",
-     "image": "musem_nh.jpg"
+    {"destiny":"Myrina Limnos",
+     "image": "mirina_limnos.jpg"
     },
-    {"destiny":"Big Ben",
-     "image": "big_ben.jpg"
+    {"destiny":"Tinos",
+     "image": "tinos-church.jpg"
     },
-    {"destiny":"Westminster Palace",
-     "image": "westminster.jpg"
+    {"destiny":"Church in Island",
+     "image": "traditional_church.jpg"
     },
-    {"destiny":"Hyde Park",
-     "image": "hyde_park.jpg"
+    {"destiny":"Leykada",
+     "image": "lefkada_porto_katsiki.jpg"
     }
   ]
 }

@@ -19,6 +19,7 @@ SASS is a preprocessor that makes CSS really powerful since you can have variabl
 - [Concatenating javascript](#concatenating-javascript-files-to-one-file)
 - [Browserify-Bootstrap-Mustache-jQuery](#Browserify-Bootstrap-Mustache- jQuery)
 - [Mustache](#mustache)
+- [Image minification](#image-minification)
 
 
 
@@ -291,11 +292,47 @@ jQuery(document).ready(function($){
 And to create the template in html :
 
 <pre><code>&lt;div class="container">
-  &lt;div class="row">
-    &lt;div id="gallery" class="gallery">
-
-    &lt;/div>
-    &lt;script id="template" type="x-tmpl-mustache"></script>
-  &lt;/div>
+    &lt;div class="row">
+              &lt;div id="gallery" class="gallery">
+                &lt;/div>
+              &lt;script id="template" type="x-tmpl-mustache">
+              {{#gallery}}
+                &lt;div class="col-sm-6 col-md-4">
+                  &lt;div class="thumbnail">
+                    &lt;img src="img/{{image}}">
+                  &lt;/div>
+                  &lt;div class="caption">
+                    &lt;h3 class="text-center">{{destiny}}</h3>
+                  &lt;/div>
+                &lt;/div>
+              {{/gallery}}
+              &lt;/script>
+      &lt;/div>
 &lt;/div>
 </code></pre>
+
+## Image minification
+
+Image minification is really important. It makes pages load faster since they reduce
+image size with minimal quality loss. Also this means better user experience since they will have your site/app loaded faster.
+
+Gulp can do this automatically. First we will install gulp-newer which checks for those resource files that are newer than corresponding.
+<pre><code>npm install --save-dev gulp-newer
+</code></pre>
+
+Then we install image-minification :
+
+<pre><code>npm install --save-dev gulp-imagemin
+</code></pre>
+
+Add a task that will check for newer images and minify them :
+<pre><code>
+gulp.task('images',function(){
+    return gulp.src(SOURCE_PATHS,imgSource)
+    .pipe(newer(APP_PATH.img))
+    .pipe(imagemin())
+    .pipe(gulp.dest(APP_PATH.img));
+});
+</code></pre>
+
+Check gulpfile.js for full code
