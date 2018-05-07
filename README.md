@@ -17,10 +17,10 @@ SASS is a preprocessor that makes CSS really powerful since you can have variabl
 - [AutoPrefixer](#autoprefixer)
 - [Copying and removing files](#copying-files)
 - [Concatenating javascript](#concatenating-javascript-files-to-one-file)
-- [Browserify-Bootstrap-Mustache-jQuery](#Browserify-Bootstrap-Mustache- jQuery)
+- [Browserify-Bootstrap-Mustache-jQuery](#Browserify-Bootstrap-Mustache-jQuery)
 - [Mustache](#mustache)
 - [Image minification](#image-minification)
-
+- [HTML partials](#html-partials)
 
 
 
@@ -336,3 +336,25 @@ gulp.task('images',function(){
 </code></pre>
 
 Check gulpfile.js for full code
+
+## HTML partials
+
+When we have repeating content and multiple html pages if we make one change for example in menu we must make the change to every html page. With backend languages like php or C# we can have these content only once and bring it where we want thanks to the backend language.
+
+Gulp has the solution though for html pages as well and called gulp-inject-partials
+
+<pre><code>
+npm install --save-dev gulp-inject-partials
+</code></pre>
+
+We add the task :
+
+<pre><code>
+gulp.task('html',function(){
+  return gulp.src(SOURCE_PATHS.htmlPartialSource)
+  .pipe(injectPartials())
+  .pipe(gulp.dest(APP_PATH.root))
+})
+</code></pre>
+
+Then where you want to include the partial you write it as you can see in index.html whci looks like a comment but has the path and the partial.

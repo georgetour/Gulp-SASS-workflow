@@ -9,6 +9,7 @@ var concat = require('gulp-concat');
 var merge = require('merge-stream');
 var newer = require('gulp-newer');
 var imagemin = require('gulp-imagemin');
+var injectPartials = require('gulp-inject-partials');
 
 
 
@@ -16,6 +17,7 @@ var imagemin = require('gulp-imagemin');
 var SOURCE_PATHS ={
   sassSource : 'src/scss/*.scss',
   htmlSource :'src/*.html',
+  htmlPartialSource : 'src/partial/*.html', //partial for repeating content
   jsSource : 'src/js/**', // if you don't have it with ** concat won't work
   imgSource : 'src/img/**'
 }
@@ -58,8 +60,6 @@ gulp.task('images',function(){
 });
 
 
-
-
 //Have bootstrap fonts
 gulp.task('fonts',function(){
   gulp.src('./node_modules/bootstrap/fonts/*.{eot,svg,ttf,woff,woff2}')
@@ -84,12 +84,20 @@ gulp.task('clean-scripts',function(){
 });
 
 
-//copy files from source to app
+//html partial for menu and repeating content
+gulp.task('html',function(){
+  return gulp.src(SOURCE_PATHS.htmlSource)
+  .pipe(injectPartials())
+  .pipe(gulp.dest(APP_PATH.root));
+});
+
+
+/*//copy files from source to app
 gulp.task('copy',['clean-html'],function(){
     gulp.src(SOURCE_PATHS.htmlSource)
     .pipe(gulp.dest(APP_PATH.root))
 });
-
+*/
 
 
 //clean html files that are deleted
@@ -112,11 +120,12 @@ gulp.task('browserSync',function(){ //run also sass task
 
 
 //Watch for changes in browserSync, sass, html, js and run all tasks inside watch task
-gulp.task('watch', ['browserSync','sass','copy','clean-html','clean-scripts','scripts','fonts','images'], function(){
+gulp.task('watch', ['browserSync','sass','clean-html','clean-scripts','scripts','fonts','images','html'], function(){
     gulp.watch([SOURCE_PATHS.sassSource],['sass']);
-    gulp.watch([SOURCE_PATHS.htmlSource],['copy']);//if we have changes to html folder copy it to app
+    //gulp.watch([SOURCE_PATHS.htmlSource],['copy']);//if we have changes to html folder copy it to app
     gulp.watch([SOURCE_PATHS.jsSource],['scripts']);
     gulp.watch([SOURCE_PATHS.imgSource],['images']);
+    gulp.watch([SOURCE_PATHS.htmlSource,SOURCE_PATHS.htmlPartialSource],['html']);//Check html for changes
   });
 
 
