@@ -21,7 +21,8 @@ var SOURCE_PATHS ={
 var APP_PATH = {
   root:'app/',
   css : 'app/css',
-  js : 'app/js'
+  js : 'app/js',
+  fonts : 'app/fonts'
 }
 
 //SASS to css
@@ -39,6 +40,13 @@ gulp.task('sass', function(){
       return merge(bootstrapCSS,sassFiles)
           .pipe(concat('app.css'))
           .pipe(gulp.dest(APP_PATH.css));//to
+});
+
+
+//Have bootstrap fonts
+gulp.task('fonts',function(){
+  gulp.src('./node_modules/bootstrap/fonts/*.{eot,svg,ttf,woff,woff2}')
+      .pipe(gulp.dest(APP_PATH.fonts));
 });
 
 
@@ -87,7 +95,7 @@ gulp.task('browserSync',function(){ //run also sass task
 
 
 //Watch for changes in browserSync, sass, html, js
-gulp.task('watch', ['browserSync','sass','copy','clean-html','clean-scripts','scripts'], function(){
+gulp.task('watch', ['browserSync','sass','copy','clean-html','clean-scripts','scripts','fonts'], function(){
     gulp.watch([SOURCE_PATHS.sassSource],['sass']);
     gulp.watch([SOURCE_PATHS.htmlSource],['copy']);//if we have changes to html folder copy it to app
     gulp.watch([SOURCE_PATHS.jsSource],['scripts']);
