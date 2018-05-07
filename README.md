@@ -17,6 +17,7 @@ SASS is a preprocessor that makes CSS really powerful since you can have variabl
 - [AutoPrefixer](#autoprefixer)
 - [Copying and removing files](#copying-files)
 - [Concatenating javascript](#concatenating-javascript-files-to-one-file)
+- [Browserify-Bootstrap-Mustache-jQuery](#Browserify-Bootstrap-Mustache- jQuery)
 
 
 
@@ -215,3 +216,51 @@ Then we use it like this :
       .pipe(gulp.dest(APP_PATH.js))
 });
 </code></pre>
+
+
+## Browserify Bootstrap Mustache jQuery
+
+Browserify is similar with npm but with more flexibility. The most common usage is to bundle packages in one file.
+
+Mustache is a template system in Javascript. You use templates for dynamic data and you can load them without refreshing the browser.
+
+Bootstrap is the ultimate library for building responsive projects. It also has many built in classes for buttons, modals, pop-ups, menus and more...
+
+<pre><code>npm install --save-dev gulp-browserify mustache jquery bootstrap@3.3.7
+</code></pre>
+
+Don't forget to add to your gulpfile.
+
+_Note : we will use bootstrap 3.3.7 as you can see in our above installment since bootstrap 4 uses different packages and css_
+
+First we add browserify in our gulp file
+
+<pre><code>var browserify = require('gulp-browserify');
+</code></pre>
+
+Then we pipe it :
+<pre><code>//Copy javascripts file from src to app
+gulp.task('scripts',['clean-scripts'], function(){
+  gulp.src(SOURCE_PATHS.jsSource)
+      .pipe(concat('main.js'))
+      .pipe(browserify())
+      .pipe(gulp.dest(APP_PATH.js))
+});
+</code></pre>
+
+Finally a file scripts.js that will have all javascript into one thanks to browserify :
+
+<pre><code>//Browserify syntax
+global.jQuery = require('jquery'); //global function makes it top-level scope object (window)
+bootstrap = require('bootstrap');
+mustache = require('mustache');
+</code></pre>
+
+### Joining CSS AND SCSS to one file
+
+First we install a package called merge-steam. This will allow to concatenate bootstrap with our css.
+
+<pre><code>npm install --save-dev merge-stream
+</code></pre>
+
+Then in the task that handles our css which is the gulp.task('sass' ... in our gulpfile.js we merge and concat our scss and bootstrap to one.

@@ -3,8 +3,11 @@ var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload; //Comes with browserSync
 var autoprefixer = require('gulp-autoprefixer');
+var browserify = require('gulp-browserify');
 var clean = require('gulp-clean');
 var concat = require('gulp-concat');
+var merge = require('merge-stream');
+
 
 //All files in our src
 var SOURCE_PATHS ={
@@ -23,10 +26,19 @@ var APP_PATH = {
 
 //SASS to css
 gulp.task('sass', function(){
-    return gulp.src(SOURCE_PATHS.sassSource)//from
+
+  //Import bootstrap from modules
+   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
+   var sassFiles;
+
+    sassFiles =  gulp.src(SOURCE_PATHS.sassSource)//from
       .pipe(autoprefixer('last 10 versions'))
       .pipe(sass({outputStyle : 'expanded'}).on('error',sass.logError))
-      .pipe(gulp.dest(APP_PATH.css));//to
+
+      //Make bootstrap files and sass files into one and output them in app.css
+      return merge(bootstrapCSS,sassFiles)
+          .pipe(concat('app.css'))
+          .pipe(gulp.dest(APP_PATH.css));//to
 });
 
 
@@ -34,6 +46,7 @@ gulp.task('sass', function(){
 gulp.task('scripts',['clean-scripts'], function(){
   gulp.src(SOURCE_PATHS.jsSource)
       .pipe(concat('main.js'))
+      .pipe(browserify())
       .pipe(gulp.dest(APP_PATH.js))
 });
 
