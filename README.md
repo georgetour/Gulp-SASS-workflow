@@ -18,6 +18,7 @@ SASS is a preprocessor that makes CSS really powerful since you can have variabl
 - [Copying and removing files](#copying-files)
 - [Concatenating javascript](#concatenating-javascript-files-to-one-file)
 - [Browserify-Bootstrap-Mustache-jQuery](#Browserify-Bootstrap-Mustache- jQuery)
+- [Mustache](#mustache)
 
 
 
@@ -264,3 +265,37 @@ First we install a package called merge-steam. This will allow to concatenate bo
 </code></pre>
 
 Then in the task that handles our css which is the gulp.task('sass' ... in our gulpfile.js we merge and concat our scss and bootstrap to one.
+
+### Bootstrap fonts
+
+To add bootstrap fonts we need a separate task that will handle them.
+To understand how we will do that :
+
+...check commit "Add bootstrap fonts"
+
+## Mustache
+
+We have added mustache library as we saw above. Now we will see how it works by using the JSON file data.json. JSON files are files that have human understandable syntax and they contain raw data which we can fetch and do with them whatever we want.They usually consist of a key:value.  So in our script.js
+
+<pre><code>//Get data from json and show them to template with mustache
+jQuery(document).ready(function($){
+  var jsonData =  $.getJSON('data.json',function(){
+
+  }).done(function(data){
+    var template = $('#template').html();
+    var showTemplate = mustache.render(template,data)//where to what data
+  });
+});
+</code></pre>
+
+And to create the template in html :
+
+<pre><code>&lt;div class="container">
+  &lt;div class="row">
+    &lt;div id="gallery" class="gallery">
+
+    &lt;/div>
+    &lt;script id="template" type="x-tmpl-mustache"></script>
+  &lt;/div>
+&lt;/div>
+</code></pre>

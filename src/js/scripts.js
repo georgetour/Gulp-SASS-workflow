@@ -4,6 +4,13 @@ bootstrap = require('bootstrap');
 mustache = require('mustache');
 
 
-jQuery(document).ready(function(){
-  console.log("hello");
+//Get data from json and show them to template with mustache
+jQuery(document).ready(function($){
+  var jsonData =  $.getJSON('data.json',function(){
+
+  }).done(function(data){
+    var template = $('#template').html();
+    var showTemplate = mustache.render(template,data)//where the template will be created, what data
+    $('#gallery').html(showTemplate);//where to show the template we created
+  });
 });
