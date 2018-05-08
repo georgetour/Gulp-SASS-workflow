@@ -73,7 +73,7 @@ gulp.task('fonts',function(){
 
 
 //Copy javascripts file from src to app
-gulp.task('scripts',['clean-scripts'], function(){
+gulp.task('scripts', function(){
   gulp.src(SOURCE_PATHS.jsSource)
       .pipe(concat('main.js'))
       .pipe(browserify())
@@ -112,10 +112,10 @@ gulp.task('compress-css', function(){
 /*** End Production Tasks ***/
 
 //clean scripts if not exist in src
-gulp.task('clean-scripts',function(){
-  return gulp.src(APP_PATH.js +'/*.js', {read:false})
-  .pipe(clean());
-});
+// gulp.task('clean-scripts',function(){
+//   return gulp.src(APP_PATH.js +'/*.js', {read:false})
+//   .pipe(clean());
+// });
 
 
 //html partial for menu and repeating content
@@ -154,7 +154,7 @@ gulp.task('browserSync',function(){ //run also sass task
 
 
 //Watch for changes in browserSync, sass, html, js and run all tasks inside watch task
-gulp.task('watch', ['browserSync','sass','clean-html','clean-scripts','scripts','fonts','images','html'], function(){
+gulp.task('watch', ['browserSync','sass','clean-html','scripts','fonts','images','html'], function(){
     gulp.watch([SOURCE_PATHS.sassSource],['sass']);
     //gulp.watch([SOURCE_PATHS.htmlSource],['copy']);//if we have changes to html folder copy it to app
     gulp.watch([SOURCE_PATHS.jsSource],['scripts']);
@@ -165,3 +165,5 @@ gulp.task('watch', ['browserSync','sass','clean-html','clean-scripts','scripts',
 
 //Run multiple tasks by calling only default task seperated with ,
 gulp.task('default',['watch']);
+
+gulp.task('production',['compress','compress-css']);
