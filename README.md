@@ -427,4 +427,4 @@ To understand how SASS  works you can check the SASS-documentation.docx
 
 Or the guide I have wrote in my site :
 
-http://www.besmartbesimple.com/Sass/mastering-sass
+<a href="http://www.besmartbesimple.com/Sass/mastering-sass" target="_blank" >http://www.besmartbesimple.com/Sass/mastering-sass</a>
