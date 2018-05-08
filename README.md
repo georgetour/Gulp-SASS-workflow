@@ -420,3 +420,11 @@ gulp.task('compress-css', function(){
           .pipe(gulp.dest(APP_PATH.css));//to
 });
 </code></pre>
+
+## SASS
+
+To understand how SASS  works you can check the SASS-documentation.docx
+
+Or the guide I have wrote in my site :
+
+http://www.besmartbesimple.com/Sass/mastering-sass
