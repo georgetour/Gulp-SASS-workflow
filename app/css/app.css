@@ -6756,6 +6756,43 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 
+@font-face {
+  font-family: "Greek";
+  src: url("/fonts/greek_font.ttf") format("truetype");
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #666666;
+}
+
+h2 {
+  margin: 20px 0;
+}
+
+p {
+  font-size: 17px;
+}
+
 body {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
+  font-size: 17px;
+  font-family: "Greek";
+  color: #000000;
+}
+
+h1 {
+  color: #666666;
+}
+
+main#main-content {
+  margin-bottom: 20px;
+}
+
+footer {
+  background-color: #0000ff;
+}
+
+.site-info {
+  background-color: #FFFFFF;
+  text-align: center;
 }

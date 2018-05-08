@@ -18,9 +18,11 @@ var cssmin = require('gulp-cssmin');
 //All files in our src
 var SOURCE_PATHS ={
   sassSource : 'src/scss/*.scss',
+  sassApp : 'src/scss/app.scss',
   htmlSource :'src/*.html',
   htmlPartialSource : 'src/partial/*.html', //partial for repeating content
   jsSource : 'src/js/**', // if you don't have it with ** concat won't work
+  fontSource:'src/scss/fonts/**',
   imgSource : 'src/img/**'
 }
 
@@ -41,7 +43,7 @@ gulp.task('sass', function(){
    var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
    var sassFiles;
 
-    sassFiles =  gulp.src(SOURCE_PATHS.sassSource)//from
+    sassFiles =  gulp.src(SOURCE_PATHS.sassApp)//from
       .pipe(autoprefixer('last 10 versions'))
       .pipe(sass({outputStyle : 'expanded'}).on('error',sass.logError))
 
@@ -65,10 +67,12 @@ gulp.task('images',function(){
 });
 
 
-//Have bootstrap fonts
+//Have bootstrap fonts and custom fonts
 gulp.task('fonts',function(){
   gulp.src('./node_modules/bootstrap/fonts/*.{eot,svg,ttf,woff,woff2}')
       .pipe(gulp.dest(APP_PATH.fonts));
+  gulp.src(SOURCE_PATHS.fontSource)
+          .pipe(gulp.dest(APP_PATH.fonts));
 });
 
 

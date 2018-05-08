@@ -403,7 +403,7 @@ Install two needed packages :
 </code></pre>
 
 Our task :
-<pre><code>
+<pre><code>//Minify CSS
 gulp.task('compress-css', function(){
 
   //Import bootstrap from modules
