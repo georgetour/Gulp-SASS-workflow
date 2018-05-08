@@ -21,6 +21,7 @@ SASS is a preprocessor that makes CSS really powerful since you can have variabl
 - [Mustache](#mustache)
 - [Image minification](#image-minification)
 - [HTML partials](#html-partials)
+- [Minification](#minification)
 
 
 
@@ -358,3 +359,64 @@ gulp.task('html',function(){
 </code></pre>
 
 Then where you want to include the partial you write it as you can see in index.html whci looks like a comment but has the path and the partial.
+
+## Minification
+
+Minification is when we make many/thousands lines of code into one line.
+This makes the file really smaller and the computer is able to read them easily.
+
+### Javascript minification
+
+First we install the package :
+
+<pre><code>npm install --save-dev gulp-minify
+</code></pre>
+
+Minify task:
+
+<pre><code>//Minify javascript
+gulp.task('compress', function(){
+  gulp.src(SOURCE_PATHS.jsSource)
+      .pipe(concat('main.js'))
+      .pipe(browserify())
+      .pipe(minify())
+      .pipe(gulp.dest(APP_PATH.js))
+});
+</code></pre>
+
+
+Then you tell gulp to run the task you created :
+
+<pre><code>gulp compress
+</code></pre>
+
+We will see in our main app we have a minified version of our js file.
+
+## CSS minification
+
+Install two needed packages :
+
+<pre><code>npm install --save-dev gulp-cssmin
+</code></pre>
+
+<pre><code>npm install --save-dev gulp-rename
+</code></pre>
+
+Our task :
+<pre><code>
+gulp.task('compress-css', function(){
+
+  //Import bootstrap from modules
+   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
+   var sassFiles;
+
+    sassFiles =  gulp.src(SOURCE_PATHS.sassSource)//from
+      .pipe(autoprefixer('last 10 versions'))
+      .pipe(sass({outputStyle : 'expanded'}).on('error',sass.logError))
+      return merge(bootstrapCSS,sassFiles)
+          .pipe(concat('app.css'))
+          .pipe(cssmin())
+          .pipe(rename({suffix: '.min'}))// Prefix name for our min file
+          .pipe(gulp.dest(APP_PATH.css));//to
+});
+</code></pre>

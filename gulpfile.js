@@ -10,7 +10,9 @@ var merge = require('merge-stream');
 var newer = require('gulp-newer');
 var imagemin = require('gulp-imagemin');
 var injectPartials = require('gulp-inject-partials');
-
+var minify = require('gulp-minify');
+var rename = require('gulp-rename');
+var cssmin = require('gulp-cssmin');
 
 
 //All files in our src
@@ -51,6 +53,9 @@ gulp.task('sass', function(){
 
 
 
+
+
+
 //Check newer Images transfer them from src to app and minify them
 gulp.task('images',function(){
     return gulp.src(SOURCE_PATHS.imgSource)
@@ -76,6 +81,35 @@ gulp.task('scripts',['clean-scripts'], function(){
 });
 
 
+/*** Production Tasks ***/
+
+//Minify javascript
+gulp.task('compress', function(){
+  gulp.src(SOURCE_PATHS.jsSource)
+      .pipe(concat('main.js'))
+      .pipe(browserify())
+      .pipe(minify())
+      .pipe(gulp.dest(APP_PATH.js))
+});
+
+//Minify css
+gulp.task('compress-css', function(){
+
+  //Import bootstrap from modules
+   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
+   var sassFiles;
+
+    sassFiles =  gulp.src(SOURCE_PATHS.sassSource)//from
+      .pipe(autoprefixer('last 10 versions'))
+      .pipe(sass({outputStyle : 'expanded'}).on('error',sass.logError))
+      return merge(bootstrapCSS,sassFiles)
+          .pipe(concat('app.css'))
+          .pipe(cssmin())
+          .pipe(rename({suffix: '.min'}))// Prefix name for our min file
+          .pipe(gulp.dest(APP_PATH.css));//to
+});
+
+/*** End Production Tasks ***/
 
 //clean scripts if not exist in src
 gulp.task('clean-scripts',function(){
