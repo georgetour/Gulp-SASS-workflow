@@ -40,7 +40,7 @@ var APP_PATH = {
 gulp.task('sass', function(){
 
   //Import bootstrap from modules
-   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
+   //var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
    var sassFiles;
 
     sassFiles =  gulp.src(SOURCE_PATHS.sassApp)//from
@@ -48,7 +48,7 @@ gulp.task('sass', function(){
       .pipe(sass({outputStyle : 'expanded'}).on('error',sass.logError))
 
       //Make bootstrap files and sass files into one and output them in app.css
-      return merge(bootstrapCSS,sassFiles)
+      //return merge(bootstrapCSS,sassFiles)
           .pipe(concat('app.css'))
           .pipe(gulp.dest(APP_PATH.css));//to
 });
@@ -69,10 +69,10 @@ gulp.task('images',function(){
 
 //Have bootstrap fonts and custom fonts
 gulp.task('fonts',function(){
-  gulp.src('./node_modules/bootstrap/fonts/*.{eot,svg,ttf,woff,woff2}')
-      .pipe(gulp.dest(APP_PATH.fonts));
-  gulp.src(SOURCE_PATHS.fontSource)
-          .pipe(gulp.dest(APP_PATH.fonts));
+  //gulp.src('./node_modules/bootstrap/fonts/*.{eot,svg,ttf,woff,woff2}')
+      //.pipe(gulp.dest(APP_PATH.fonts));
+  //gulp.src(SOURCE_PATHS.fontSource)
+          //.pipe(gulp.dest(APP_PATH.fonts));
 });
 
 
@@ -100,13 +100,13 @@ gulp.task('compress', function(){
 gulp.task('compress-css', function(){
 
   //Import bootstrap from modules
-   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
+   //var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
    var sassFiles;
 
     sassFiles =  gulp.src(SOURCE_PATHS.sassSource)//from
       .pipe(autoprefixer('last 10 versions'))
       .pipe(sass({outputStyle : 'expanded'}).on('error',sass.logError))
-      return merge(bootstrapCSS,sassFiles)
+      //return merge(bootstrapCSS,sassFiles)
           .pipe(concat('app.css'))
           .pipe(cssmin())
           .pipe(rename({suffix: '.min'}))// Prefix name for our min file
