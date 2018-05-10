@@ -14,6 +14,11 @@ body{
   color: $black;
 }
 
+img{
+  max-width: 100%;
+
+}
+
 
 h1{
   color: $heading-color;
@@ -26,9 +31,4 @@ main#main-content{
 
 footer{
   background-color:$bg-footer;
-}
-
-.site-info{
-  background-color: $white;
-  text-align: $text-center;
 }

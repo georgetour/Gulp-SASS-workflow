@@ -1,0 +1,42 @@
+table{
+  width:100%;
+  text-align: left;
+  font-size: 1.2rem;
+  border-collapse:collapse;
+
+  //First child witrh this tag
+  > caption{
+    text-align: left;
+    font-size:map-get($heading-font-size,h2);
+    color:$light-grey;
+    margin-bottom: 20px;
+    margin:20px 0;
+  }
+
+  thead tr th{
+      background-color: darken($light-blue,20);
+      color: $white;
+      padding: 2px;
+  }
+
+  > thead ,
+  > tbody{
+    > tr{
+      color:$light-grey;
+      background-color: darken($light-blue,20);
+      &:nth-child(odd){
+        background-color: $light-blue;
+      }
+
+      &:hover{
+        background-color: darken($blue,20);
+        color:$white;
+      }
+      th,td{
+        padding:10px;
+        border-bottom: 1px dotted $blue;
+      }
+    }
+  }
+
+}

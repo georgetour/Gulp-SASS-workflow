@@ -1,6 +1,6 @@
 //Variables
 $white : #FFFFFF;
-$blue :  #0000ff;
+$blue :  lighten(#0000ff,10);
 $light-blue :#e6f5ff;
 $black  : #000000 ;
 $light-grey :lighten($black,40);
@@ -27,6 +27,9 @@ $heading-font-size:(
   h6: 20px
 );
 
+//cards
+$card-bg-color:$light-blue;
+$card-font-size:14px;
 
 //visit
 $visit-border-color: $black;
@@ -45,7 +48,8 @@ $grid-max-width: 1200px;
 
 
 //buttons
-$btn-font-size :16px;
+$btn-font-size :12px;
+$btn-font-weight:bold;
 
 //footer-navigation
 $bg-footer:$blue;

@@ -1,0 +1,27 @@
+footer.site-footer{
+  padding-top: 20px;
+  margin-top: 30px;
+  color:$light-grey;
+
+
+  h2{
+    margin:0;
+    color: $white;
+  }
+  p{
+    color: $white;
+  }
+
+  p.site-info{
+    text-align: center;
+    background-color: $white;
+    padding: 12px;
+    color: $light-grey;
+
+  }
+
+  .about{
+    padding-bottom: 30px;
+  }
+
+}
